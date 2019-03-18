@@ -105,6 +105,16 @@ DEFAULT_CONFIG = {
                     bool,
                 ),
             ),
+            (
+                "SCOPE_MICROSOFT",
+                (
+                    ["User.Read"],
+                    _(
+                        "Scope of microsoft"
+                    ),
+                    list,
+                ),
+            )
         ]
     ),
     "fieldsets": OrderedDict(
@@ -116,6 +126,7 @@ DEFAULT_CONFIG = {
                     "MICROSOFT_AUTH_LOGIN_TYPE",
                     "MICROSOFT_AUTH_CLIENT_ID",
                     "MICROSOFT_AUTH_CLIENT_SECRET",
+                    "SCOPE_MICROSOFT",
                 ),
             )
         ]

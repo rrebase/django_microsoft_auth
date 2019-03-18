@@ -38,7 +38,6 @@ class MicrosoftClient(OAuth2Session):
 
     # required OAuth scopes
     SCOPE_XBL = ["XboxLive.signin", "XboxLive.offline_access"]
-    SCOPE_MICROSOFT = ["User.Read"]
 
     def __init__(self, state=None, request=None, *args, **kwargs):
         from .conf import config
@@ -47,7 +46,7 @@ class MicrosoftClient(OAuth2Session):
 
         domain = Site.objects.get_current().domain
         path = reverse("microsoft_auth:auth-callback")
-        scope = " ".join(self.SCOPE_MICROSOFT)
+        scope = " ".join(self.config.SCOPE_MICROSOFT)
 
         if self.config.MICROSOFT_AUTH_LOGIN_TYPE == LOGIN_TYPE_XBL:
             scope = " ".join(self.SCOPE_XBL)
@@ -189,7 +188,7 @@ class MicrosoftClient(OAuth2Session):
         if self.config.MICROSOFT_AUTH_LOGIN_TYPE == LOGIN_TYPE_XBL:
             required_scopes = set(self.SCOPE_XBL)
         else:
-            required_scopes = set(self.SCOPE_MICROSOFT)
+            required_scopes = set(self.config.SCOPE_MICROSOFT)
 
         # verify all require_scopes are in scopes
         return required_scopes <= scopes
