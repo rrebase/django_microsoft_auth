@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
-from .models import MicrosoftAccount, XboxLiveAccount
+from .models import MicrosoftAccount
 
 User = get_user_model()
 
@@ -28,24 +28,3 @@ if admin.site.is_registered(User):  # pragma: no branch
 @admin.register(MicrosoftAccount)
 class MicrosoftAccountAdmin(*base_admin):
     readonly_fields = ("microsoft_id",)
-
-
-class MicrosoftAccountInlineAdmin(admin.StackedInline):
-    model = MicrosoftAccount
-    readonly_fields = ("microsoft_id",)
-
-
-@admin.register(XboxLiveAccount)
-class XboxLiveAccountAdmin(*base_admin):
-    readonly_fields = ("xbox_id", "gamertag")
-
-
-class XboxLiveAccountInlineAdmin(admin.StackedInline):
-    model = XboxLiveAccount
-    readonly_fields = ("xbox_id", "gamertag")
-
-
-@admin.register(User)
-class UserAdmin(*base_user_admin):
-    # adds MicrosoftAccount and XboxLiveAccount foreign keys to User model
-    inlines = (MicrosoftAccountInlineAdmin, XboxLiveAccountInlineAdmin)
